@@ -69,7 +69,3 @@ The task was to create a system that simulates the core functionalities of an e-
 This project demonstrates our ability to rapidly build, test, and deliver a fully functional solution within a tight 3-hour deadline. Despite the time constraint, we ensured that the solution was robust, efficient, and scalable. Future iterations could include features like user accounts, enhanced UI/UX, and cloud deployment.  
 
 **Crafted with precision and dedication under 3 hours.** ⏳
-
----
-
-Let me know if you'd like further adjustments!
