@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>E-Commerce Cart System</title>
+    <link rel="stylesheet" href="index.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .product-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: center;
+        }
+        .product-card img {
+            max-width: 150px;
+            max-height: 150px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+        .cart-details {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>E-Commerce Cart System</h1>
+    
+    <div id="products-container">
+    <h2>Available Products</h2>
+    <div id="product-grid" class="product-grid"></div>
+    </div>
+
+    <div id="cart-container">
+    <h2>Cart Details</h2>
+    <div id="cart-details" class="cart-details"></div>
+    </div>
+    
+    <script>
+        const BASE_URL = 'http://localhost:5000';
+
+        async function fetchProducts() {
+            const response = await fetch(`${BASE_URL}/products`);
+            const products = await response.json();
+            const productGrid = document.getElementById('product-grid');
+            
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.classList.add('product-card');
+                productCard.innerHTML = `
+                    <img src="${product.image_url}" alt="${product.name}" />
+                    <h3>${product.name}</h3>
+                    <p>₹${product.price}</p>
+                    <button onclick="addToCart(${product.id})">Add to Cart</button>
+                `;
+                productGrid.appendChild(productCard);
+            });
+        }
+
+        async function addToCart(productId) {
+            await fetch(`${BASE_URL}/cart/add`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ product_id: productId })
+            });
+            fetchCartDetails();
+        }
+
+        async function removeFromCart(cartItemId) {
+            await fetch(`${BASE_URL}/cart/remove/${cartItemId}`, {
+                method: 'DELETE'
+            });
+            fetchCartDetails();
+        }
+
+        async function fetchCartDetails() {
+            const response = await fetch(`${BASE_URL}/cart/details`);
+            const cartData = await response.json();
+            const cartDetails = document.getElementById('cart-details');
+            
+            cartDetails.innerHTML = `
+                <h3>Cart Items</h3>
+                ${cartData.items.map(item => `
+                    <div>
+                        <img src="${item.image_url}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: contain;" />
+                        ${item.name} - ₹${item.price}
+                        <button onclick="removeFromCart(${item.id})">Remove</button>
+                    </div>
+                `).join('')}
+                <p>Total Price: ₹${cartData.total_price.toFixed(2)}</p>
+                <p>Discount Rate: ${(cartData.discount_rate * 100).toFixed(2)}%</p>
+                <p>Final Price: ₹${cartData.discounted_price.toFixed(2)}</p>
+            `;
+        }
+        fetchProducts();
+        fetchCartDetails();
+    </script>
+</body>
+</html>
+
