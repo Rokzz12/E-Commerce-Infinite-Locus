@@ -1,7 +1,7 @@
-# E-Commerce Cart System with Real-Time Discounts 🛒💸                                                                                                                                                                    
+**E-Commerce Cart System with Real-Time Discounts 🛒💸**                                                                                                                                                                    
 This solution was developed as part of a 3-hour challenge provided by Infinite Locus. The goal was to design and implement a functional e-commerce cart system with dynamic discount functionality. Here's an overview of our solution and its features:
 
-
+---
 
 ## Problem Statement 📝
 
