@@ -1,5 +1,4 @@
 # E-Commerce Cart System with Real-Time Discounts 🛒💸
-
 This solution was developed as part of a 3-hour challenge provided by Infinite Locus. The goal was to design and implement a functional e-commerce cart system with dynamic discount functionality. Here's an overview of our solution and its features:
 
 ---
@@ -28,7 +27,7 @@ The task was to create a system that simulates the core functionalities of an e-
    - Above ₹5000: 20% discount.
 
 4. **Deployment:** 
-   - Deploy the application locally.
+   - Deploy the application locally (or host in cloud).
 
 5. **Bonus Features (Optional):**
    - User login to maintain individual carts.
